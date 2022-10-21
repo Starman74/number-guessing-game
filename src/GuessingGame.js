@@ -1,38 +1,34 @@
 import React, {useState, useEffect} from 'react';
-import Form from 'react-bootstrap/Form'
-import Button from 'react-bootstrap/Button'
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
 
 
 function GuessingGame() {
     const [ guess, setGuess ] = useState("");
     const [ message, setMessage] = useState("Start Guessing");
     const [ randomNum, setRandomNum] = useState(null);
-    const [ timesGuessed, setTimesGuessed] = useState(null)
+    const [ timesGuessed, setTimesGuessed] = useState(null);
 
     useEffect(() => {
-
         if (randomNum === null ) {
 
             setRandomNum(
                 JSON.parse(localStorage.getItem("random")) || genereateNum()
-            )
-        }
+            );
+        };
 
         if (timesGuessed === null ) {
 
             setTimesGuessed(
                 JSON.parse(localStorage.getItem("guesses")) || 0
-            )
-        }
+            );
+        };
 
     }, []);
 
     function genereateNum() {
-
         let random = Math.floor(Math.random() * 100);
-
         localStorage.setItem("random", JSON.stringify (random));
-
         return random;
     };
 
@@ -41,16 +37,16 @@ function GuessingGame() {
         let parseNum = parseInt(guess);
 
         if (parseNum === randomNum) {
-            setMessage('congrats you got it')
+            setMessage('congrats you got it');
         } else if ( parseNum > randomNum ) {
-            setMessage('thats to high')
+            setMessage('thats to high');
         } else {
-            setMessage('thats to low')
-        }
+            setMessage('thats to low');
+        };
 
-        setTimesGuessed(timesGuessed + 1)
-        localStorage.setItem("guesses", JSON.stringify(timesGuessed + 1))
-    }
+        setTimesGuessed(timesGuessed + 1);
+        localStorage.setItem("guesses", JSON.stringify(timesGuessed + 1));
+    };
 
     function handeleChange(event) {
         if ( !isNaN(event.target.value)) {
@@ -66,9 +62,7 @@ function GuessingGame() {
         setTimesGuessed(0)
         setRandomNum(genereateNum())
         localStorage.removeItem("guesses")
-
-    }
-
+    };
 
     return (
         <>
